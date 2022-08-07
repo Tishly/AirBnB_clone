@@ -1,7 +1,7 @@
 #!usr/bin/python3
 """Defines the BaseModel class."""
 import models
-from uuid import uuid4
+import uuid
 from datetime import datetime
 
 
@@ -19,14 +19,14 @@ class BaseModel():
         tformat = "%Y-%m-%dT%H:%M:%S.%f"
         if kwargs:
             for k, v in kwargs.items():
-                if k == '__class__':
+                if k == "__class__":
                     continue
-                elif k == 'created_at' or k == 'updated_at':
+                elif k == "created_at" or k == "updated_at":
                     self.__dict__[k] = datetime.strptime(v, tformat)
                 else:
                     self.__dict__[k] = v
         else:
-            self.id = str(uuid4())
+            self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
             models.storage.new(self)
