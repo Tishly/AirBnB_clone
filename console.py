@@ -1,6 +1,6 @@
 #!/usr/bin/python3
+"""Defines the hbnb console."""
 import cmd
-import models
 import re
 from shlex import split
 from models import storage
@@ -8,9 +8,14 @@ from models.base_model import BaseModel
 
 
 class HBNBCommand(cmd.Cmd):
+    """Defines the hbnb command interpreter.
+    
+    Attributes:
+        prompt (str): The command prompt.
+    """
 
     prompt = '(hbnb) '
-    __classes = ['BaseModel']
+    __classes = {'BaseModel'}
 
     def emptyline(self):
         """do nothing"""
