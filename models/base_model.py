@@ -5,7 +5,7 @@ import uuid
 from datetime import datetime
 
 
-class BaseModel():
+class BaseModel:
     """Represent the base model.
     Represents the "base" for all other classes in AirBnB project.
     """
