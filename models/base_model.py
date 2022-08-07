@@ -16,14 +16,14 @@ class BaseModel:
             *args: as many arguments.
             **kwargs: key/pair value arguments.
         """
+        tformat = "%Y-%m-%dT%H:%M:%S.%f"
         self.id = str(uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+        self.created_at = datetime.today()
+        self.updated_at = datetime.today()
         if len(kwargs) != 0:
             for k, v in kwargs.items():
                 if k == 'created_at' or k == 'updated_at':
-                    format = "%Y-%m-%dT%H:%M:%S.%f"
-                    self.__dict__[k] = datetime.strptime(v, format)
+                    self.__dict__[k] = datetime.strptime(v, tformat)
                 else:
                     self.__dict__[k] = v
         else:
@@ -36,7 +36,7 @@ class BaseModel:
 
     def save(self):
         """updates the current datetime after changes"""
-        self.updated_at = datetime.now()
+        self.updated_at = datetime.today()
         models.storage.save()
 
     def to_dict(self):
