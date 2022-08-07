@@ -21,25 +21,24 @@ class HBNBCommand(cmd.Cmd):
         prompt (str): The command prompt.
     """
 
-    prompt = '(hbnb) '
-    __classes = ['BaseModel',
-                 'User',
-                 'Place',
-                 'State',
-                 'City',
-                 'Amenity',
-                 'Review'
-                 ]
+    prompt = "(hbnb) "
+    __classes = ["BaseModel",
+                 "User",
+                 "Place",
+                 "State",
+                 "City",
+                 "Amenity",
+                 "Review"]
 
     def emptyline(self):
         """do nothing"""
         pass
 
-    def do_quit(self, arg):
+    def do_quit(self, args):
         """Quit command to exit the program."""
         raise SystemExit
 
-    def do_EOF(self, arg):
+    def do_EOF(self, args):
         """EOF signal to exit the program."""
         return True
 
@@ -98,7 +97,7 @@ class HBNBCommand(cmd.Cmd):
             objects = models.storage.all()
             instance = d_list[0] + '.' + d_list[1]
             if instance in objects.keys():
-                del (objects[instance])
+                del(objects[instance])
                 models.storage.save()
             else:
                 print('** no instance found **')
