@@ -17,32 +17,34 @@ class BaseModel:
             **kwargs: key/pair value arguments.
         """
         tformat = "%Y-%m-%dT%H:%M:%S.%f"
-        self.id = str(uuid4())
-        self.created_at = datetime.today()
-        self.updated_at = datetime.today()
-        if len(kwargs) != 0:
+        if kwargs:
             for k, v in kwargs.items():
-                if k == 'created_at' or k == 'updated_at':
+                if k == '__class__':
+                    continue
+                elif k == 'created_at' or k == 'updated_at':
                     self.__dict__[k] = datetime.strptime(v, tformat)
                 else:
                     self.__dict__[k] = v
         else:
+            self.id = str(uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
             models.storage.new(self)
 
     def __str__(self):
         """return the print/str representation of the BaseModel instance"""
         clsname = self.__class__.__name__
-        return "[{}] ({}) {}".format(clsname, self.id, self.__dict__)
+        return ("[{}] ({}) {}".format(clsname, self.id, self.__dict__))
 
     def save(self):
         """updates the current datetime after changes"""
-        self.updated_at = datetime.today()
+        self.updated_at = datetime.now()
         models.storage.save()
 
     def to_dict(self):
         """returns a dict containing all keys/values"""
         ndict = self.__dict__.copy()
-        ndict['created_at'] = self.created_at.isoformat()
-        ndict['updated_at'] = self.updated_at.isoformat()
-        ndict['__class__'] = self.__class__.__name__
-        return ndict
+        ndict.update({'created_at': self.created_at.isoformat()})
+        ndict.update({'updated_at': self.updated_at.isoformat()})
+        ndict.update({'__class__': self.__class__.__name__})
+        return (ndict)
