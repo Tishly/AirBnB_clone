@@ -4,7 +4,7 @@ import json
 from models.base_model import BaseModel
 
 
-class FileStorage:
+class FileStorage():
     """Represent the file storage for AirBnB project.
     Initialize a new Base.
     Args:
