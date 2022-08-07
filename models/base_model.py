@@ -1,7 +1,7 @@
 #!usr/bin/python3
 """Defines the BaseModel class."""
 import models
-from uuid import uuid4
+import uuid
 from datetime import datetime
 
 
@@ -19,14 +19,15 @@ class BaseModel():
         tformat = "%Y-%m-%dT%H:%M:%S.%f"
         if kwargs:
             for k, v in kwargs.items():
-                if k == '__class__':
+                if k == "__class__":
                     continue
-                elif k == 'created_at' or k == 'updated_at':
-                    self.__dict__[k] = datetime.strptime(v, tformat)
+                elif k == "created_at" or k == "updated_at":
+                    time = datetime.strptime(v, tformat)
+                    setattr(self, k, time)
                 else:
-                    self.__dict__[k] = v
+                    setattr(self, k, v)
         else:
-            self.id = str(uuid4())
+            self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
             models.storage.new(self)
@@ -44,7 +45,7 @@ class BaseModel():
     def to_dict(self):
         """returns a dict containing all keys/values"""
         ndict = self.__dict__.copy()
-        ndict.update({'created_at': self.created_at.isoformat()})
-        ndict.update({'updated_at': self.updated_at.isoformat()})
-        ndict.update({'__class__': self.__class__.__name__})
+        ndict.update({"created_at": self.created_at.isoformat()})
+        ndict.update({"updated_at": self.updated_at.isoformat()})
+        ndict.update({"__class__": self.__class__.__name__})
         return (ndict)

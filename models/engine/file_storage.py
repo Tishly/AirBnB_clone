@@ -26,20 +26,23 @@ class FileStorage():
 
     def new(self, obj):
         """Set the __objects to always represent key <obj class name>.id"""
-        obj_name = obj.__class__.__name__
-        FileStorage.__objects["{}.{}".format(obj_name, obj.id)] = obj
+        key = obj.__class__.__name__ + "." + obj.id
+        FileStorage.__objects.update({key: obj})
 
     def save(self):
         """converts object to JSON and store in file"""
         odict = FileStorage.__objects
-        objdict = {obj: odict[obj].to_dict() for obj in odict.keys()}
+        objdict = {}
+        for k, v in odict.items():
+            objdict[k] = v.to_dict()
+
         with open(FileStorage.__file_path, "w") as f:
             json.dump(objdict, f)
 
     def reload(self):
         """converts back to object if file exist"""
         try:
-            with open(FileStorage.__file_path) as f:
+            with open(FileStorage.__file_path, "r") as f:
                 objdict = json.load(f)
 
                 for k, v in objdict.items():
