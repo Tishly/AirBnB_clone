@@ -18,6 +18,15 @@ class BaseModel:
         """
         tformat = "%Y-%m-%dT%H:%M:%S.%f"
         if kwargs:
+            if 'id' in kwargs:
+                self.id = kwargs['id']
+            if 'created_at' in kwargs:
+                self.created_at = datetime.fromisoformat(
+                                                         kwargs['created_at'])
+            if 'updated_at' in kwargs:
+                self.updated_at = datetime.fromisoformat(
+                                                         kwargs['updated_at'])
+
             for k, v in kwargs.items():
                 if k == "__class__":
                     continue
