@@ -1,7 +1,13 @@
-#!usr/bin/python3
+#!/usr/bin/python3
 """Defines the FileStorage class."""
 import json
 from models.base_model import BaseModel
+from models.user import User
+from models.place import Place
+from models.state import State
+from models.amenity import Amenity
+from models.city import City
+from models.review import Review
 
 
 class FileStorage():
@@ -35,9 +41,10 @@ class FileStorage():
         try:
             with open(FileStorage.__file_path) as f:
                 objdict = json.load(f)
-                for o in objdict.values():
-                    cls_name = o["__class__"]
-                    del o["__class__"]
-                    self.new(eval(cls_name)(**o))
+
+                for k, v in objdict.items():
+                    cls_name = v.get('__class__')
+                    obj = eval(cls_name + '(**v)')
+                    FileStorage.__objects[k] = obj
         except FileNotFoundError:
             pass
