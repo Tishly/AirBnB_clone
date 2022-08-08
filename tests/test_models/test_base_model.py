@@ -128,3 +128,13 @@ class TestBaseModelDocs(unttest.TestCase):
         self.assertEqual(d['name'], "My_First_Model")
         self.assertEqual(d['my_number'], 89)
 
+    def test_to_dict_values(self):
+        """test that the values in dict returned from to_dict are accurate"""
+        t_format  = "%Y-%m-%dT%H:%M:%S.%f"
+        bm = BaseModel()
+        new_d = bm.to_dict()
+        self.assertEqual(new_d["__class__"], "BaseModel")
+        self.assertEqual(type(new_d["created_at"]), str)
+        self.assertEqual(type(new_d["updated_at"]), str)
+        self.assertEqual(new_d["created_at"], bm.created_at.strftime(t_format))
+        self.assertEqual(new_d["created_at"], bm.created_at.strftime(t_format))
