@@ -40,3 +40,73 @@ class TestBaseModelDocs(unttest.TestCase):
                         "BaseModel class needs a docstring")
         self.assertTrue(len(BaseModel.__doc__) >= 1,
                         "BaseModel class needs a docstring")
+
+    def test_func_docstrings(self):
+        """Test for the presence of docstrings in BaseModel methods"""
+        for func in self.base_funcs:
+            with self.subTest(function=func):
+                self.assertIsNot(
+                        func[1].__doc__,
+                        None,
+                        "{:s} method needs a docstring".format(func[0])
+                )
+                self.assertTrue(
+                        len(func[1].__doc__) > 1,
+                        "{:s} method needs a docstring".format(func[0])
+                )
+
+    class TestBaseModel(unittest.TestCase):
+        """Test the BaseModel class"""
+        @mock.patch('models.storage')
+        def test_instantiation(self, mock_storage):
+            """Test that object is correctly created"""
+            inst = BaseModel()
+            self.assertIs(type(inst), BaseModel)
+            inst.name = "My_First_Model"
+            inst.number = 89
+            attrs_types = {
+                "id": str,
+                "created_at": datetime,
+                "updated_at": datetime,
+                "name": str,
+                "number": int
+            }
+            for attr, typ in attrs_types.items():
+                with self.subTest(attr=attr, typ=typ):
+                    self.assertIn(attr, inst.__dict__)
+                    self.assertIs(type(inst.__dict__[attr]), typ)
+            self.assertTrue(mock_storage.new.called)
+            self.assertEqual(inst.name, "My_First_Model")
+            self.assertEqual(inst.number, 89)
+
+    def test_datetime_attributes(self):
+        """Test that two BaseModel instances have different datetime objects
+        and that upon creation have identical updated_at and created_at
+        value."""
+        tic = datetime.now()
+        inst1 = BaseModel()
+        toc = datetime.now()
+        self.assertTrue(tic <= inst1.created_at <= toc)
+        time.sleep(1e-4)
+        tic = datetime.now()
+        inst2 = BaseModel()
+        toc = datetime.now()
+        self.assertTrue(tic <= inst2.created_at <= toc)
+        self.assertEqual(inst1.created_at, inst1.updated_at)
+        self.assertEqual(inst2.created_at, inst2.updated_at)
+        self.assertNotEqual(inst1.created_at, inst2.created_at)
+        self.assertNotEqual(inst1.updated_at, inst2.updated_at)
+
+    def test_uuid(self):
+        """Test that id is a valid uuid"""
+        inst1 = BaseModel()
+        inst2 = BaseModel()
+        for inst in [inst1, inst2]:
+            uuid = inst.id
+            with self.subTest(uuid=uuid):
+                self.assertIs(type(uuid), str)
+                self.assertRegex(uuid,
+                        '^[0-9a-f]{8}-[0-9a-f]{4}'
+                        '-[0-9a-f]{4}-[0-9a-f]{4}'
+                        '-[0-9a-f]{12}$')
+         self.assertNotEqual(inst1.id, inst2.id)
