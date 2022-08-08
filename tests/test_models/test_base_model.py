@@ -138,3 +138,23 @@ class TestBaseModelDocs(unttest.TestCase):
         self.assertEqual(type(new_d["updated_at"]), str)
         self.assertEqual(new_d["created_at"], bm.created_at.strftime(t_format))
         self.assertEqual(new_d["created_at"], bm.created_at.strftime(t_format))
+
+    def test_str(self):
+        """test that the str method has the correct output"""
+        inst = BaseModel()
+        string = "[BaseModel] ({}) {}".format(inst.id, inst.__dict__)
+        self.assertEqual(string, str(inst))
+
+    @mock.patch('models.storage')
+    def test_save(self, mock_storage):
+        """Test that save method updates `updated_at` and calls
+        `storage.save`"""
+        inst = BaseModel()
+        old_created_at = inst.created_at
+        old_updated_at = inst.updated_at
+        inst.save()
+        new_created_at = inst.created_at
+        new_updated_at = inst.updated_at
+        self.assertNotEqual(old_updated_at, new_updated_at)
+        self.assertEqual(old_created_at, new_created_at)
+        self.assertTrue(mock_storage.save.called)
