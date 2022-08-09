@@ -6,10 +6,11 @@ from datetime import datetime
 import pep8 as pycodestyle
 import inspect
 from models.base_model import BaseModel
+Amenity = amenity.Amenity()
 
 
 class TestAmenityDocs(unittest.TestCase):
-    """Tsts to check the docstring of the Amenity class"""
+    """Tests to check the docstring of the Amenity class"""
     @classmethod
     def setUpClass(cls):
         """Set up for doc test"""
