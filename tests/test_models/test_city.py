@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+Contains test cases for the City class
+"""
 
 import unittest
 from models import city

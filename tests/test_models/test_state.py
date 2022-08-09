@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+Contains test cases for the State class
+"""
 
 import unittest
 from models import state
