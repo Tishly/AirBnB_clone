@@ -68,8 +68,23 @@ class TestCity(unittest.TestCase):
         self.assertEqual(cty.name, "")
         self.assertTrue(hasattr(cty, "name"))
 
-    def test_to_dict_creates_dict(self):
+    def test_state_id_attr(self):
+        """Test that City has attribute stat_id and is an empty string"""
+        cty = City()
+        self.assertEqual(cty.state_id, "")
+        self.assertTrue(hasattr(city, "state_id"))
+
+    def test_to_dict_creats_dict(self):
         """Test to_dict method creates a dictionary with proper attributes"""
+        c = City()
+        new_d = c.to_dict()
+        self.assertEqual(type(new_d), dict)
+        for attr in c.__dict__:
+            self.assertTrue(attr in new_d)
+            self.assertTrue("__class__" in new_d)
+
+    def test_to_dict_values(self):
+        """Test to_dict for correct values"""
         t_format = "%Y-%m-%dT%H:%M:%S.%f"
         cti = City()
         new_d = cti.to_dict()
