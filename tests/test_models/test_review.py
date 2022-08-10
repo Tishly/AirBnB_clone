@@ -6,7 +6,6 @@ Contains test cases for Review class
 import unittest
 from models import review
 from datetime import datetime
-import pep8 as pycodestyle
 import inspect
 from models.base_model import BaseModel
 Review = review.Review()

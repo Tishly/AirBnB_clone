@@ -6,7 +6,6 @@ Contains test cases for the City class
 import unittest
 from models import city
 from datetime import datetime
-import pep8 as pycodestyle
 import inspect
 from models.base_model import BaseModel
 City = city.City
@@ -17,7 +16,7 @@ class TestCityDocs(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         """Set up for doc test"""
-        cls.city_f = inspect.getmembers(City, inspsect.isfunction)
+        cls.city_f = inspect.getmembers(City, inspect.isfunction)
 
     def test_pep8_conformity_city(self):
         """Test that models/city.py conforms to PEP8"""
@@ -73,7 +72,7 @@ class TestCity(unittest.TestCase):
         self.assertTrue(hasattr(cty, "name"))
 
     def test_state_id_attr(self):
-        """Test that City has attribute stat_id and is an empty string"""
+        """Test that City has attribute state_id and is an empty string"""
         cty = City()
         self.assertEqual(cty.state_id, "")
         self.assertTrue(hasattr(city, "state_id"))

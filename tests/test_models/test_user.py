@@ -6,7 +6,6 @@ Contains test cases for the User class
 import unittest
 from models import user
 from datetime import datetime
-import pep8 as pycodestyle
 import inspect
 from models.base_model import BaseModel
 User = user.User()
@@ -17,7 +16,7 @@ class TestUserDocs(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         """Set up for doc test"""
-        cls.user_f = inspect.getmembers(User, inspsect.isfunction)
+        cls.user_f = inspect.getmembers(User, inspect.isfunction)
 
     def test_pep8_conformity_user(self):
         """Test that models/user.py conforms to PEP8"""

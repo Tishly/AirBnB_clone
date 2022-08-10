@@ -5,7 +5,6 @@ Contains test cases for the BaseModel class
 
 import inspect
 import models
-import pep8 as pycodestyle
 import unittest
 import time
 from unittest import mock

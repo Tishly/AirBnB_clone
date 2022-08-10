@@ -6,7 +6,6 @@ Contains the test cases for Place class
 import unittest
 from models import place
 from datetime import datetime
-import pep8 as pycodestyle
 import inspect
 from models.base_model import BaseModel
 Place = place.Place()
