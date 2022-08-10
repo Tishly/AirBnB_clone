@@ -6,7 +6,6 @@ Contains test cases for the Amenity class
 import unittest
 from models import amenity
 from datetime import datetime
-import pep8 as pycodestyle
 import inspect
 from models.base_model import BaseModel
 Amenity = amenity.Amenity()
