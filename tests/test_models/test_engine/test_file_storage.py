@@ -15,11 +15,10 @@ from models.state import State
 from models.user import User
 import json
 import os
-import pep8
 import unittest
 FileStorage = file_storage.FileStorage
 classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
-                   "Place": Place, "Review": Review, "State": State, "User": User}
+           "Place": Place, "Review": Review, "State": State, "User": User}
 
 
 class TestFileStorageDocs(unittest.TestCase):
@@ -42,7 +41,7 @@ class TestFileStorageDocs(unittest.TestCase):
         result = pep8s.check_files(['tests/test_models/test_engine/\
                 test_file_storage.py'])
         self.assertEqual(result.total_errors, 0,
-                        "Found code style errors (and warnings).")
+                         "Found code style errors (and warnings).")
 
     def test_file_storage_module_docstring(self):
         """Test for the file_storage.py module docstring"""
@@ -61,10 +60,11 @@ class TestFileStorageDocs(unittest.TestCase):
     def test_fs_func_docstrings(self):
         """Test for the presence of docstrings in FileStorage methods"""
         for func in self.fs_f:
-        self.assertIsNot(func[1].__doc__, None,
-        "{:s} method needs a docstring".format(func[0]))
-        self.assertTrue(len(func[1].__doc__) >= 1,
-        "{:s} method needs a docstring".format(func[0]))
+            self.assertIsNot(func[1].__doc__, None,
+                             "{:s} method needs a docstring".format(func[0]))
+            self.assertTrue(len(func[1].__doc__) >= 1,
+                            "{:s} method needs a docstring".format(func[0]))
+
 
 class TestFileStorage(unittest.TestCase):
     """Test the FileStorage class"""
@@ -108,4 +108,4 @@ class TestFileStorage(unittest.TestCase):
         string = json.dumps(new_dict)
         with open("file.json", "r") as f:
             js = f.read()
-        self.assertEqual(json.loads(string), json.loads(js))for key, value in new_dict.items():
+        self.assertEqual(json.loads(string), json.loads(js))
