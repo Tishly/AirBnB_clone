@@ -24,26 +24,26 @@ class TestReviewDocs(unittest.TestCase):
         pep8s = pep8.StyleGuide(quiet=True)
         result = pep8s.check_files(['models/review.py'])
         self.assertEqual(result.total_errors, 0,
-                          "Found code style errors (and warnings).")
+                         "Found code style errors (and warnings).")
 
     def test_pep8_conformity_test_review(self):
         """Test that tests/test_models/test_review.py conforms to PEP8"""
-        pep8s= pep8.styleGuide(quiet=True)
+        pep8s = pep8.styleGuide(quiet=True)
         result = pep8s.check_files(['tests/test_models/test_review.py'])
         self.assertEqual(result.total_errors, 0,
-                        "Found code style errors (and warnings).")
+                         "Found code style errors (and warnings).")
 
     def test_review_module_docstring(self):
         """Test for review.py module docstring"""
         self.assertIsNot(review.__doc__, None,
-                        "review.py needs a docstring")
+                         "review.py needs a docstring")
         self.assertTrue(len(review.__doc__) >= 1,
                         "review.py needs a docstring")
 
     def test_review_class_docstring(self):
         """Test for review.py class docstring"""
         self.assertIsNot(Review.__doc__, None,
-                        "Review class needs a docstring")
+                         "Review class needs a docstring")
         self.assertTrue(len(Review__doc__) >= 1,
                         "Review class needs a docstring")
 
@@ -51,9 +51,10 @@ class TestReviewDocs(unittest.TestCase):
         """Test for the docstring in Review methods"""
         for func in self.review_f:
             self.assertIsNot(func[1].__doc__, None,
-                            "{:s} method needs a docstring".format(func[0]))
+                             "{:s} method needs a docstring".format(func[0]))
             self.assertTrue(len(func[1].__doc__) >= 1,
                             "{:s} method needs a docstring".format(func[0]))
+
 
 class TestUser(unittest.TestCase):
     """Test for the Review class"""

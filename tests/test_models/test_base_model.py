@@ -25,7 +25,7 @@ class TestBaseModelDocs(unttest.TestCase):
     def test_pep8_approval(self):
         """Tests that models/base_model.py conforms to PEP8 standards"""
         for path in ['models/base_models.py'
-                    'tests/test_models/test_base_model.py']:
+                     'tests/test_models/test_base_model.py']:
             with self.subTest(path=path):
                 errors = pycodestyle.Checker(path).checkall()
                 self.assertEqual(errors, 0)
@@ -33,14 +33,14 @@ class TestBaseModelDocs(unttest.TestCase):
     def test_module_docstring(self):
         """Test for existence of module docstring"""
         self.assertIsNot(mdoc, None,
-                        "base_model.py has no docstring")
+                         "base_model.py has no docstring")
         self.assertTrue(len(mdoc) > 1,
                         "base_model.py has no docstring")
 
     def test_class_docstring(self):
         """Test for the BaseModel class docstring"""
         self.assertIsNot(BaseModel.__doc__, None,
-                        "BaseModel class needs a docstring")
+                         "BaseModel class needs a docstring")
         self.assertTrue(len(BaseModel.__doc__) >= 1,
                         "BaseModel class needs a docstring")
 
@@ -109,10 +109,10 @@ class TestBaseModelDocs(unttest.TestCase):
             with self.subTest(uuid=uuid):
                 self.assertIs(type(uuid), str)
                 self.assertRegex(uuid,
-                        '^[0-9a-f]{8}-[0-9a-f]{4}'
-                        '-[0-9a-f]{4}-[0-9a-f]{4}'
-                        '-[0-9a-f]{12}$')
-         self.assertNotEqual(inst1.id, inst2.id)
+                                 '^[0-9a-f]{8}-[0-9a-f]{4}'
+                                 '-[0-9a-f]{4}-[0-9a-f]{4}'
+                                 '-[0-9a-f]{12}$')
+        self.assertNotEqual(inst1.id, inst2.id)
 
     def test_to_dict(self):
         """Test conversion of object attributes to dictionary for json"""
@@ -121,11 +121,11 @@ class TestBaseModelDocs(unttest.TestCase):
         my_model.my_number = 89
         d = my_model.to_dict()
         expected_attrs = ["id",
-                        "created_at",
-                        "updated_at",
-                        "name",
-                        "my_number",
-                        "__class__"]
+                          "created_at",
+                          "updated_at",
+                          "name",
+                          "my_number",
+                          "__class__"]
         self.assertCountEqual(d.keys(), expected_attrs)
         self.assertEqual(d['__class__'], 'BaseModel')
         self.assertEqual(d['name'], "My_First_Model")
@@ -133,7 +133,7 @@ class TestBaseModelDocs(unttest.TestCase):
 
     def test_to_dict_values(self):
         """test that the values in dict returned from to_dict are accurate"""
-        t_format  = "%Y-%m-%dT%H:%M:%S.%f"
+        t_format = "%Y-%m-%dT%H:%M:%S.%f"
         bm = BaseModel()
         new_d = bm.to_dict()
         self.assertEqual(new_d["__class__"], "BaseModel")

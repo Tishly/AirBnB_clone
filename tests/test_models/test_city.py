@@ -24,26 +24,26 @@ class TestCityDocs(unittest.TestCase):
         pep8s = pep8.StyleGuide(quiet=True)
         result = pep8s.check_files(['models/city.py'])
         self.assertEqual(result.total_errors, 0,
-                          "Found code style errors (and warnings).")
+                         "Found code style errors (and warnings).")
 
     def test_pep8_conformity_test_city(self):
         """Test that tests/test_models/test_city.py conforms to PEP8"""
-        pep8s= pep8.styleGuide(quiet=True)
+        pep8s = pep8.styleGuide(quiet=True)
         result = pep8s.check_files(['tests/test_models/test_city.py'])
         self.assertEqual(result.total_errors, 0,
-                        "Found code style errors (and warnings).")
+                         "Found code style errors (and warnings).")
 
     def test_city_module_docstring(self):
         """Test for city.py module docstring"""
         self.assertIsNot(city.__doc__, None,
-                        "city.py needs a docstring")
+                         "city.py needs a docstring")
         self.assertTrue(len(city.__doc__) >= 1,
                         "city.py needs a docstring")
 
     def test_city_class_docstring(self):
         """Test for city.py class docstring"""
         self.assertIsNot(City.__doc__, None,
-                        "City class needs a docstring")
+                         "City class needs a docstring")
         self.assertTrue(len(City__doc__) >= 1,
                         "City class needs a docstring")
 
@@ -51,9 +51,10 @@ class TestCityDocs(unittest.TestCase):
         """Test for the docstring in City methods"""
         for func in self.city_f:
             self.assertIsNot(func[1].__doc__, None,
-                            "{:s} method needs a docstring".format(func[0]))
+                             "{:s} method needs a docstring".format(func[0]))
             self.assertTrue(len(func[1].__doc__) >= 1,
                             "{:s} method needs a docstring".format(func[0]))
+
 
 class TestCity(unittest.TestCase):
     """Test for the City class"""
@@ -89,13 +90,13 @@ class TestCity(unittest.TestCase):
     def test_to_dict_values(self):
         """Test to_dict for correct values"""
         t_format = "%Y-%m-%dT%H:%M:%S.%f"
-        cti = City()
-        new_d = cti.to_dict()
+        c = City()
+        new_d = c.to_dict()
         self.assertEqual(new_d["__class__"], "City")
         self.assertEqual(type(new_d["created_at"], str))
         self.assertEqual(type(new_d["updated_at"], str))
-        self.assertEqual(new_d["created_at"], cti.created_at.strftime(t_format))
-        self.assertEqual(new_d["updated_at"], cti.updated_at.strftime(t_format))
+        self.assertEqual(new_d["created_at"], c.created_at.strftime(t_format))
+        self.assertEqual(new_d["updated_at"], c.updated_at.strftime(t_format))
 
     def test_str(self):
         """test that the str method has the correct output"""
